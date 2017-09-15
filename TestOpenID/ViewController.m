@@ -7,11 +7,13 @@
 //
 
 #import "ViewController.h"
-
 #import "OIDOpenIdManager.h"
 
-@interface ViewController () <UIWebViewDelegate>
+#import <WebKit/WebKit.h>
 
+@interface ViewController () <WKNavigationDelegate>
+
+@property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic) OIDOpenIdManager *manager;
 @property (nonatomic) NSString *alias;
 @property (nonatomic) NSData *macKey;
@@ -24,8 +26,8 @@
 {
     if (! _manager) {
        _manager = [[OIDOpenIdManager alloc] init];
-       _manager.returnTo = @"https://www.openid-example.com/";
-       _manager.realm = @"https://*.openid-example.com";
+        _manager.returnTo = @"https://www.openid-example.com/";
+        _manager.realm = @"https://www.openid-example.com/";
     }
     return _manager;
 }
@@ -33,9 +35,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    
-    self.webView.delegate = self;
+    self.view.backgroundColor = [UIColor whiteColor];
+
+    self.webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
+    self.webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.webView.navigationDelegate = self;
+    [self.view addSubview:self.webView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,41 +55,43 @@
 {
     [super viewWillAppear:animated];
     
-    [self.manager lookupEndpoint:@"Google" callback:^(OIDEndpoint *endpoint) {
+    [self.manager lookupEndpoint:@"http://steamcommunity.com/openid" callback:^(OIDEndpoint *endpoint) {
         NSLog(@"%@", endpoint);
         self.alias = endpoint.alias;
         
         [self.manager lookupAssociation:endpoint callback:^(OIDAssociation *association) {
             NSLog(@"%@", association);
             self.macKey = association.rawMacKey;
-            
-            NSString *url = [self.manager getAuthenticationUrl:endpoint association:association];
+
+            NSString *url = [self.manager getAuthenticationUrl:endpoint association:nil];
             NSLog(@"Open the authentication URL in browser: %@", url);
-            
+
             [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
         }];
     }];
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {
-    if (navigationType == UIWebViewNavigationTypeFormSubmitted) {
-        NSString *url = request.URL.absoluteString;
+    
+    if (navigationAction.navigationType == WKNavigationTypeFormSubmitted) {
+        NSString *url = navigationAction.request.URL.absoluteString;
         if ([url hasPrefix:self.manager.returnTo]) {
             NSLog(@"After successfully sign on in browser, enter the URL of address bar in browser: %@", url);
-            
-            OIDAuthentication *authentication = [self.manager authentication:request key:self.macKey alias:self.alias];
+
+            OIDAuthentication *authentication = [self.manager authentication:navigationAction.request key:self.macKey alias:self.alias];
             if (authentication) {
                 NSLog(@"Login Success Identity: %@", authentication.identity);
             } else {
                 NSLog(@"Login failure.");
             }
-            
+
             [webView loadHTMLString:authentication.description baseURL:nil];
-            return NO;
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
         }
     }
-    return YES;
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 @end

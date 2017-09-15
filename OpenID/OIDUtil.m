@@ -20,7 +20,7 @@
            callback:(void ((^)(NSDictionary*)))callback
 {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:url]
-                                                                cachePolicy:NSURLCacheStorageNotAllowed
+                                                                cachePolicy:NSURLRequestReloadIgnoringCacheData
                                                             timeoutInterval:(timeOut / 1000.0)];
     request.HTTPMethod = method;
     request.HTTPBody = [postData dataUsingEncoding:NSUTF8StringEncoding];
@@ -40,7 +40,7 @@
         if (res.statusCode == 200) {
             callback(map);
         } else {
-            NSLog(@"Bad response code: %d", res.statusCode);
+            NSLog(@"Bad response code: %ld", (long)res.statusCode);
             NSLog(@"response body: %@", [self content:map]);
             return;
         }
@@ -52,7 +52,7 @@
     NSString *cache = map[@"Cache-Control"];
     if (cache == nil)
         return 0L;
-    int pos = [cache rangeOfString:@"max-age="].location;
+    NSUInteger pos = [cache rangeOfString:@"max-age="].location;
     if (pos != NSNotFound) {
         NSString *maxAge = [cache substringFromIndex:(pos + @"max-age=".length)];
         pos = [maxAge rangeOfString:@","].location;
@@ -77,7 +77,7 @@
 {
     NSString *contentType = map[@"Content-Type"];
     if (contentType) {
-        int pos = [contentType rangeOfString:@"charset="].location;
+        NSUInteger pos = [contentType rangeOfString:@"charset="].location;
         if (pos != NSNotFound) {
             NSString *charset = [contentType substringFromIndex:(pos + @"charset=".length)];
             for (const NSStringEncoding *encoding = [NSString availableStringEncodings]; *encoding != 0; encoding++) {
@@ -105,11 +105,11 @@
 {
     if (startToken==nil || endToken==nil)
         return nil;
-    int start = [s rangeOfString:startToken options:0 range:NSMakeRange(fromStart, s.length - fromStart)].location;
+    NSUInteger start = [s rangeOfString:startToken options:0 range:NSMakeRange(fromStart, s.length - fromStart)].location;
     if (start == NSNotFound)
         return nil;
     start += startToken.length;
-    int end = [s rangeOfString:endToken options:0 range:NSMakeRange(start, s.length - start)].location;
+    NSUInteger end = [s rangeOfString:endToken options:0 range:NSMakeRange(start, s.length - start)].location;
     if (end == NSNotFound)
         return nil;
     NSString *sub = [s substringWithRange:NSMakeRange(start, end - start)];
@@ -164,7 +164,7 @@
     if (list.count > 0) {
         NSMutableString *sb = [NSMutableString stringWithCapacity:1024];
         for (NSString *s in list) {
-            int n = [s rangeOfString:@"="].location;
+            NSUInteger n = [s rangeOfString:@"="].location;
             if (n != NSNotFound) {
                 [sb appendString:[s substringToIndex:(n + 1)]];
                 [sb appendString:[self urlEncode:[s substringFromIndex:(n + 1)]]];

@@ -4,19 +4,11 @@
 <array>
 	<dict>
 		<key>name</key>
-		<string>Google</string>
+		<string>Steam</string>
 		<key>alias</key>
 		<string>ext1</string>
 		<key>url</key>
-		<string>https://www.google.com/accounts/o8/id</string>
-	</dict>
-	<dict>
-		<key>name</key>
-		<string>Yahoo</string>
-		<key>alias</key>
-		<string>ax</string>
-		<key>url</key>
-		<string>http://open.login.yahooapis.com/openid20/www.yahoo.com/xrds</string>
+		<string>http://steamcommunity.com/openid</string>
 	</dict>
 </array>
 </plist>
