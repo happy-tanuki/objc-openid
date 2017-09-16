@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22868A971F6C50BF00BB446E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22055CAC1F6C152E009282F4 /* WebKit.framework */; };
 		F77489911728E94300FCA592 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77489901728E94300FCA592 /* UIKit.framework */; };
 		F77489931728E94300FCA592 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77489921728E94300FCA592 /* Foundation.framework */; };
 		F77489951728E94300FCA592 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77489941728E94300FCA592 /* CoreGraphics.framework */; };
@@ -17,7 +18,6 @@
 		F77489A51728E94300FCA592 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F77489A41728E94300FCA592 /* Default@2x.png */; };
 		F77489A71728E94300FCA592 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F77489A61728E94300FCA592 /* Default-568h@2x.png */; };
 		F77489AA1728E94300FCA592 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F77489A91728E94300FCA592 /* ViewController.m */; };
-		F77489AD1728E94300FCA592 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F77489AB1728E94300FCA592 /* ViewController.xib */; };
 		F77489E1172A35D600FCA592 /* OIDAssociation.m in Sources */ = {isa = PBXBuildFile; fileRef = F77489D4172A35D600FCA592 /* OIDAssociation.m */; };
 		F77489E2172A35D600FCA592 /* OIDAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = F77489D6172A35D600FCA592 /* OIDAuthentication.m */; };
 		F77489E3172A35D600FCA592 /* OIDEndpoint.m in Sources */ = {isa = PBXBuildFile; fileRef = F77489D8172A35D600FCA592 /* OIDEndpoint.m */; };
@@ -29,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		22055CAC1F6C152E009282F4 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		22055CAE1F6C2121009282F4 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		F774898D1728E94300FCA592 /* TestOpenID.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestOpenID.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F77489901728E94300FCA592 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F77489921728E94300FCA592 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -44,7 +46,6 @@
 		F77489A61728E94300FCA592 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		F77489A81728E94300FCA592 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		F77489A91728E94300FCA592 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		F77489AC1728E94300FCA592 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		F77489D3172A35D600FCA592 /* OIDAssociation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OIDAssociation.h; sourceTree = "<group>"; };
 		F77489D4172A35D600FCA592 /* OIDAssociation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OIDAssociation.m; sourceTree = "<group>"; };
 		F77489D5172A35D600FCA592 /* OIDAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OIDAuthentication.h; sourceTree = "<group>"; };
@@ -67,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22868A971F6C50BF00BB446E /* WebKit.framework in Frameworks */,
 				F77489911728E94300FCA592 /* UIKit.framework in Frameworks */,
 				F77489931728E94300FCA592 /* Foundation.framework in Frameworks */,
 				F77489951728E94300FCA592 /* CoreGraphics.framework in Frameworks */,
@@ -97,6 +99,8 @@
 		F774898F1728E94300FCA592 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				22055CAE1F6C2121009282F4 /* SafariServices.framework */,
+				22055CAC1F6C152E009282F4 /* WebKit.framework */,
 				F77489901728E94300FCA592 /* UIKit.framework */,
 				F77489921728E94300FCA592 /* Foundation.framework */,
 				F77489941728E94300FCA592 /* CoreGraphics.framework */,
@@ -111,7 +115,6 @@
 				F77489A01728E94300FCA592 /* AppDelegate.m */,
 				F77489A81728E94300FCA592 /* ViewController.h */,
 				F77489A91728E94300FCA592 /* ViewController.m */,
-				F77489AB1728E94300FCA592 /* ViewController.xib */,
 				F77489971728E94300FCA592 /* Supporting Files */,
 			);
 			path = TestOpenID;
@@ -179,11 +182,11 @@
 		F77489851728E94300FCA592 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
-				ORGANIZATIONNAME = masataka;
+				LastUpgradeCheck = 0900;
+				ORGANIZATIONNAME = "";
 			};
 			buildConfigurationList = F77489881728E94300FCA592 /* Build configuration list for PBXProject "TestOpenID" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -208,7 +211,6 @@
 				F77489A31728E94300FCA592 /* Default.png in Resources */,
 				F77489A51728E94300FCA592 /* Default@2x.png in Resources */,
 				F77489A71728E94300FCA592 /* Default-568h@2x.png in Resources */,
-				F77489AD1728E94300FCA592 /* ViewController.xib in Resources */,
 				F77489E7172A35D600FCA592 /* openid-providers.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,14 +246,6 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		F77489AB1728E94300FCA592 /* ViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F77489AC1728E94300FCA592 /* en */,
-			);
-			name = ViewController.xib;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -262,25 +256,41 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -293,18 +303,33 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -314,9 +339,11 @@
 		F77489B11728E94300FCA592 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 6LF3GMKZAB;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestOpenID/TestOpenID-Prefix.pch";
 				INFOPLIST_FILE = "TestOpenID/TestOpenID-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lisb.example.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -325,9 +352,11 @@
 		F77489B21728E94300FCA592 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = 6LF3GMKZAB;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestOpenID/TestOpenID-Prefix.pch";
 				INFOPLIST_FILE = "TestOpenID/TestOpenID-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lisb.example.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

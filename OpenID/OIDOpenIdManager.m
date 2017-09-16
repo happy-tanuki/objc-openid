@@ -88,23 +88,26 @@
     }
     
     // check sig:
-    NSArray *params = [sign componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\\,"]];
-    NSMutableString *sb = [NSMutableString string];
-    for (NSString *param in params) {
-        [sb appendString:param];
-        [sb appendString:@":"];
-        NSString *value = parameters[[@"openid." stringByAppendingString:param]];
-        if (value) {
-            [sb appendString:value];
+    //TODO: Implement provider check for stateless sessions
+    if (key != nil) {
+        NSArray *params = [sign componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\\,"]];
+        NSMutableString *sb = [NSMutableString string];
+        for (NSString *param in params) {
+            [sb appendString:param];
+            [sb appendString:@":"];
+            NSString *value = parameters[[@"openid." stringByAppendingString:param]];
+            if (value) {
+                [sb appendString:value];
+            }
+            [sb appendString:@"\n"];
         }
-        [sb appendString:@"\n"];
+        NSString *hmac = [OIDUtil hmac_sha1:[sb dataUsingEncoding:NSUTF8StringEncoding] key:key];
+        if (! [self safeEqual:hmac to:sig]) {
+            NSLog(@"Verify signature failed.");
+            return nil;
+        }
     }
-    NSString *hmac = [OIDUtil hmac_sha1:[sb dataUsingEncoding:NSUTF8StringEncoding] key:key];
-    if (! [self safeEqual:hmac to:sig]) {
-        NSLog(@"Verify signature failed.");
-        return nil;
-    }
-    
+
     // set auth:
     OIDAuthentication *auth = [[OIDAuthentication alloc] init];
     auth.identity = identity;
@@ -136,7 +139,7 @@
     if (name == nil) {
         name = params[[NSString stringWithFormat:@"openid.%@.value.fullname", axa]];
         if (name != nil) {
-            int n = [name rangeOfString:@" " options:NSBackwardsSearch].location;
+            NSUInteger n = [name rangeOfString:@" " options:NSBackwardsSearch].location;
             if (n!=(-1))
                 name = [name substringFromIndex:n + 1];
         }
@@ -150,7 +153,7 @@
     if (name == nil) {
         name = params[[NSString stringWithFormat:@"openid.%@.value.fullname", axa]];
         if (name != nil) {
-            int n = [name rangeOfString:@" "].location;
+            NSUInteger n = [name rangeOfString:@" "].location;
             if (n!=(-1))
                 name = [name substringToIndex:n];
         }
@@ -222,8 +225,12 @@
     [sb appendString:[self authQuery:endpoint.alias]];
     [sb appendString:@"&openid.return_to="];
     [sb appendString:_returnToUrlEncode];
-    [sb appendString:@"&openid.assoc_handle="];
-    [sb appendString:association.assocHandle];
+    
+    if (association.assocHandle != nil) {
+        [sb appendString:@"&openid.assoc_handle="];
+        [sb appendString:association.assocHandle];
+    }
+
     if (_realm != nil) {
         [sb appendString:@"&openid.realm="];
         [sb appendString:_realm];
@@ -246,7 +253,7 @@
         OIDAssociation *assoc = [[OIDAssociation alloc] init];
         for (NSString *newline in [content componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]]) {
             NSString *line = [newline stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            int pos = [line rangeOfString:@":"].location;
+            NSUInteger pos = [line rangeOfString:@":"].location;
             if (pos != NSNotFound) {
                 NSString *key = [line substringToIndex:pos];
                 NSString *value = [line substringFromIndex:pos + 1];
@@ -298,7 +305,7 @@
         return _assocQuery;
     }
     NSMutableArray *list = [NSMutableArray array];
-    [list addObject:@"openid.ns=http://specs.openid.net/auth/2.0"];
+    [list addObject:@"openid.ns=http://specs.openid.net/auth/2.0/server"];
     [list addObject:@"openid.mode=associate"];
     [list addObject:[@"openid.session_type=" stringByAppendingString:SESSION_TYPE_NO_ENCRYPTION]];
     [list addObject:[@"openid.assoc_type=" stringByAppendingString:ASSOC_TYPE_HMAC_SHA1]];
